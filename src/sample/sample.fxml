@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <VBox fx:id="vBoxMain" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox id="MainHBox" fx:id="hBoxBackground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                    <children>
+                        <HBox id="leftHBox" fx:id="hBox" maxHeight="1.7976931348623157E308" HBox.hgrow="NEVER">
+                            <children>
+                                <HBox fx:id="hBoxLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <VBox fx:id="vBoxInside" maxHeight="1.7976931348623157E308" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <HBox fx:id="hBoxInside" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
+                                                    <children>
+                                                        <Button fx:id="buttonBack" minWidth="80.0" mnemonicParsing="false" text="Zurück">
+                                                            <HBox.margin>
+                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                        <ComboBox fx:id="comboBox" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                                            <HBox.margin>
+                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                            </HBox.margin>
+                                                        </ComboBox>
+                                                        <Button fx:id="buttonForward" layoutX="10.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" text="Vor">
+                                                            <HBox.margin>
+                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <Label fx:id="synonyms" text="Synonyme:" VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <ListView fx:id="listSynonyms" fixedCellSize="50.0" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                                    <opaqueInsets>
+                                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                                    </opaqueInsets>
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                    </VBox.margin>
+                                                </ListView>
+                                                <Button fx:id="buttonSearchSynonyms" mnemonicParsing="false" text="Suche Synonyme" VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                        <VBox fx:id="vBoxInside2" maxHeight="1.7976931348623157E308" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <HBox fx:id="hBoxInside_2" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
+                                                    <children>
+                                                        <Button fx:id="buttonAdd" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Hinzufügen" HBox.hgrow="ALWAYS">
+                                                            <HBox.margin>
+                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                        <Button fx:id="buttonSort" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Sortieren" HBox.hgrow="ALWAYS">
+                                                            <HBox.margin>
+                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                        <Button fx:id="Loeschen" layoutX="37.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Löschen" HBox.hgrow="ALWAYS">
+                                                            <HBox.margin>
+                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                </HBox>
+                                                <Label fx:id="medien" text="Medien:" VBox.vgrow="NEVER">
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <ListView fx:id="listMedia" fixedCellSize="50.0" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                                    <opaqueInsets>
+                                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                                    </opaqueInsets>
+                                                    <VBox.margin>
+                                                        <Insets bottom="32.0" left="2.0" right="2.0" top="2.0" />
+                                                    </VBox.margin>
+                                                </ListView>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                    </HBox.margin>
+                                </HBox>
+                            </children>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </HBox>
+                        <Separator fx:id="separator" maxHeight="1.7976931348623157E308" orientation="VERTICAL" prefHeight="486.0" prefWidth="0.0" HBox.hgrow="NEVER">
+                            <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                            </HBox.margin>
+                        </Separator>
+                        <HBox id="RightHBox" fx:id="hBox1" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                            <children>
+                                <VBox fx:id="vBoxRight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <HBox fx:id="hBoxRight" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
+                                            <children>
+                                                <Label fx:id="suchbegriffe" text="Suchbegriff:" HBox.hgrow="NEVER">
+                                                    <HBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="14.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="Suchleiste" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" HBox.hgrow="ALWAYS">
+                                                    <HBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="14.0" />
+                                                    </HBox.margin>
+                                                </TextField>
+                                                <Button fx:id="Suchen" mnemonicParsing="false" text="Suchen" HBox.hgrow="NEVER">
+                                                    <HBox.margin>
+                                                        <Insets bottom="2.0" left="2.0" right="10.0" top="14.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                        <WebView fx:id="webView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" left="2.0" right="10.0" top="20.0" />
+                                            </VBox.margin>
+                                        </WebView>
+                                        <HBox fx:id="hBoxRight_2" maxWidth="1.7976931348623157E308">
+                                            <children>
+                                                <Label fx:id="labelB" maxWidth="1.7976931348623157E308" text="Letzter Bearbeiter:" HBox.hgrow="ALWAYS">
+                                                    <HBox.margin>
+                                                        <Insets bottom="12.0" left="2.0" right="2.0" top="2.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="labelA" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="Letzte Änderung:" HBox.hgrow="ALWAYS">
+                                                    <HBox.margin>
+                                                        <Insets bottom="12.0" left="2.0" right="2.0" top="2.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
