@@ -1,8 +1,5 @@
 package sample;
 
-/* @author Fuad Aliev
- *  02.12.2018
- */
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -51,7 +48,6 @@ public class WikiBooksParser {
             }
 
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
 
         } catch (IOException e) {

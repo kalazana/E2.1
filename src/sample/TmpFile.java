@@ -19,9 +19,9 @@ public class TmpFile {
      * @throws IOException
      */
     public File createTmpFile(ArrayList<String> _tmp) throws IOException {
-        File f = File.createTempFile("temp", ".xml");
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF8"));
-        f.deleteOnExit();
+        File datei = File.createTempFile("temp", ".xml");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(datei), "UTF8"));
+        datei.deleteOnExit();
 
         for (String line : _tmp) {
             writer.write(line);
@@ -30,9 +30,9 @@ public class TmpFile {
 
         writer.close();
 
-        BufferedReader br = new BufferedReader(new FileReader(f));
+        BufferedReader br = new BufferedReader(new FileReader(datei));
         br.close();
-        return f;
+        return datei;
     }
 }
 
