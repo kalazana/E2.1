@@ -23,7 +23,7 @@ public abstract class Medium implements Comparable<Medium>, Serializable {
         if((_Titel != null) || (!(_Titel.isEmpty())))
             this.Titel = _Titel;
         else
-            throw new IllegalArgumentException("Geben Sie den Titel des Mediums an.");
+            throw new IllegalArgumentException("Geben Sie den Titel des Mediums an!");
     }
 
     //abstrakte Ausgabe Methode
