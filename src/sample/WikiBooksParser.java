@@ -20,8 +20,6 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-import javafx.scene.control.Button;
-
 public class WikiBooksParser {
 
     /*
@@ -62,7 +60,7 @@ public class WikiBooksParser {
      * parse Methode zum Parsen eine XML Datei -> auf basis von StaxParser param
      * _sSearch throws IOException
      */
-    public WikiBooks parse(String search) {
+    public Medium parse(String search) {
 
         boolean bIP = false, isbook = false, bUsername = false, bTimestamp = false, bText = false;
         String sUsername = null, sTimestamp = null, sTitel = null, sRegal = null;

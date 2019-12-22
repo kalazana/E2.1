@@ -37,6 +37,23 @@ public class Controller {
     AnchorPane anchorPane;
 
     @FXML
+    Button Speichern;
+
+    @FXML
+    Button Laden;
+
+    @FXML
+    Button Loeschen;
+
+    @FXML
+    Button Hinzufuegen;
+
+    @FXML
+    Button Sortieren;
+
+
+
+    @FXML
     private void initialize() {
 
         webView.getEngine().load("https://de.wikibooks.org/wiki");

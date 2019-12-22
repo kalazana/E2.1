@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <VBox fx:id="vBoxMain" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -70,12 +70,12 @@
                                             <children>
                                                 <HBox fx:id="hBoxInside_2" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
                                                     <children>
-                                                        <Button fx:id="buttonAdd" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Hinzufügen" HBox.hgrow="ALWAYS">
+                                                        <Button fx:id="Hinzufuegen" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Hinzufügen" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                             </HBox.margin>
                                                         </Button>
-                                                        <Button fx:id="buttonSort" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Sortieren" HBox.hgrow="ALWAYS">
+                                                        <Button fx:id="Sortieren" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Sortieren" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                             </HBox.margin>
@@ -92,6 +92,8 @@
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                     </VBox.margin>
                                                 </Label>
+                                    <Button fx:id="Speichern" mnemonicParsing="false" text="Speichern" />
+                                    <Button fx:id="Laden" mnemonicParsing="false" text="Laden" />
                                                 <ListView fx:id="listMedia" fixedCellSize="50.0" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
                                                     <opaqueInsets>
                                                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
