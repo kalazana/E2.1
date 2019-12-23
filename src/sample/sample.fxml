@@ -12,31 +12,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <VBox fx:id="vBoxMain" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox id="MainHBox" fx:id="hBoxBackground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                     <children>
-                        <HBox id="leftHBox" fx:id="hBox" maxHeight="1.7976931348623157E308" HBox.hgrow="NEVER">
+                        <HBox id="leftHBox" fx:id="hBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="NEVER">
                             <children>
                                 <HBox fx:id="hBoxLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <VBox fx:id="vBoxInside" maxHeight="1.7976931348623157E308" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                        <VBox fx:id="vBoxInside" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="576.0" prefWidth="368.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <HBox fx:id="hBoxInside" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
+                                                <HBox fx:id="hBoxInside" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
                                                     <children>
-                                                        <Button fx:id="buttonBack" minWidth="80.0" mnemonicParsing="false" text="Zurück">
+                                                        <Button fx:id="zurueck" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" text="Zurück">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                             </HBox.margin>
                                                         </Button>
-                                                        <ComboBox fx:id="comboBox" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                                        <ComboBox fx:id="synonymBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                             </HBox.margin>
                                                         </ComboBox>
-                                                        <Button fx:id="buttonForward" layoutX="10.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" text="Vor">
+                                                        <Button fx:id="vor" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" text="Vor">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                             </HBox.margin>
@@ -51,7 +51,7 @@
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <ListView fx:id="listSynonyms" fixedCellSize="50.0" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                                <ListView fx:id="synonymliste" fixedCellSize="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefWidth="343.0" VBox.vgrow="ALWAYS">
                                                     <opaqueInsets>
                                                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                                     </opaqueInsets>
@@ -59,42 +59,42 @@
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                     </VBox.margin>
                                                 </ListView>
-                                                <Button fx:id="buttonSearchSynonyms" mnemonicParsing="false" text="Suche Synonyme" VBox.vgrow="NEVER">
+                                                <Button fx:id="suchenSynonyme" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="39.0" prefWidth="248.0" text="Suche Synonyme" VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                     </VBox.margin>
                                                 </Button>
                                             </children>
                                         </VBox>
-                                        <VBox fx:id="vBoxInside2" maxHeight="1.7976931348623157E308" maxWidth="300.0" HBox.hgrow="ALWAYS">
+                                        <VBox fx:id="vBoxInside2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="578.0" prefWidth="359.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <HBox fx:id="hBoxInside_2" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
+                                                <HBox fx:id="hBoxInside_2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
                                                     <children>
-                                                        <Button fx:id="Hinzufuegen" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Hinzufügen" HBox.hgrow="ALWAYS">
+                                                        <Button fx:id="Hinzufuegen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Hinzufügen" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                             </HBox.margin>
                                                         </Button>
-                                                        <Button fx:id="Sortieren" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Sortieren" HBox.hgrow="ALWAYS">
+                                                        <Button fx:id="Sortieren" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Sortieren" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                             </HBox.margin>
                                                         </Button>
-                                                        <Button fx:id="Loeschen" layoutX="37.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Löschen" HBox.hgrow="ALWAYS">
+                                                        <Button fx:id="Loeschen" layoutX="37.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Löschen" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
                                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                             </HBox.margin>
                                                         </Button>
                                                     </children>
                                                 </HBox>
-                                                <Label fx:id="medien" text="Medien:" VBox.vgrow="NEVER">
+                                                <Label fx:id="medien" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Medien:" VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="4.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                    <Button fx:id="Speichern" mnemonicParsing="false" text="Speichern" />
-                                    <Button fx:id="Laden" mnemonicParsing="false" text="Laden" />
-                                                <ListView fx:id="listMedia" fixedCellSize="50.0" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+                                    <Button fx:id="Speichern" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Speichern" />
+                                    <Button fx:id="Laden" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Laden" />
+                                                <ListView fx:id="listMedia" fixedCellSize="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="355.0" VBox.vgrow="ALWAYS">
                                                     <opaqueInsets>
                                                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                                     </opaqueInsets>
@@ -114,7 +114,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </HBox>
-                        <Separator fx:id="separator" maxHeight="1.7976931348623157E308" orientation="VERTICAL" prefHeight="486.0" prefWidth="0.0" HBox.hgrow="NEVER">
+                        <Separator fx:id="separator" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="601.0" prefWidth="0.0" HBox.hgrow="NEVER">
                             <HBox.margin>
                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                             </HBox.margin>
@@ -125,7 +125,7 @@
                                     <children>
                                         <HBox fx:id="hBoxRight" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
                                             <children>
-                                                <Label fx:id="suchbegriffe" text="Suchbegriff:" HBox.hgrow="NEVER">
+                                                <Label fx:id="suchbegriffe" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Suchbegriff:" HBox.hgrow="NEVER">
                                                     <HBox.margin>
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="14.0" />
                                                     </HBox.margin>
@@ -135,7 +135,7 @@
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="14.0" />
                                                     </HBox.margin>
                                                 </TextField>
-                                                <Button fx:id="Suchen" mnemonicParsing="false" text="Suchen" HBox.hgrow="NEVER">
+                                                <Button fx:id="Suchen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Suchen" HBox.hgrow="NEVER">
                                                     <HBox.margin>
                                                         <Insets bottom="2.0" left="2.0" right="10.0" top="14.0" />
                                                     </HBox.margin>
@@ -149,12 +149,12 @@
                                         </WebView>
                                         <HBox fx:id="hBoxRight_2" maxWidth="1.7976931348623157E308">
                                             <children>
-                                                <Label fx:id="labelB" maxWidth="1.7976931348623157E308" text="Letzter Bearbeiter:" HBox.hgrow="ALWAYS">
+                                                <Label fx:id="labelB" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Letzter Bearbeiter:" HBox.hgrow="ALWAYS">
                                                     <HBox.margin>
                                                         <Insets bottom="12.0" left="2.0" right="2.0" top="2.0" />
                                                     </HBox.margin>
                                                 </Label>
-                                                <Label fx:id="labelA" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="Letzte Änderung:" HBox.hgrow="ALWAYS">
+                                                <Label fx:id="labelA" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Letzte Änderung:" HBox.hgrow="ALWAYS">
                                                     <HBox.margin>
                                                         <Insets bottom="12.0" left="2.0" right="2.0" top="2.0" />
                                                     </HBox.margin>

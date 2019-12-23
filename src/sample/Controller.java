@@ -1,11 +1,10 @@
 package sample;
 
 
+import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -41,6 +40,21 @@ public class Controller {
     @FXML
     Button Sortieren;
 
+    @FXML
+    ListView<String> synonymliste;
+
+    @FXML
+    Button vor;
+
+    @FXML
+    Button zurueck;
+
+    @FXML
+    ComboBox<String> synonymBox;
+
+    @FXML
+    Button suchenSynonyme;
+
 
     @FXML
     private void initialize() {
@@ -52,12 +66,16 @@ public class Controller {
         Loeschen.setDisable(true);
 
         Suchen.setOnAction((event) -> {
-            search();
+            suchen();
+        });
+
+        Suchleiste.setOnMouseClicked(event -> {
+            Suchleiste.selectAll();
         });
 
         Suchleiste.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                search();
+                suchen();
             }
         });
 
@@ -72,8 +90,8 @@ public class Controller {
                     urlName = webView.getEngine().getLocation();
                     urlName = urlName.replace("https://de.wikibooks.org/wiki/", "");
                     Suchleiste.setText(urlName);
-                    search();
-                    Suchleiste.clear();
+                    suchen();
+                    //Suchleiste.clear();
                 } else {
                     urlName = webView.getEngine().getLocation();
                     urlName = urlName.replace("https://de.wikibooks.org/w/index.php?search=", "");
@@ -82,13 +100,99 @@ public class Controller {
                         urlName = urlName.substring(0, urlName.indexOf("&title"));
                     }
                     Suchleiste.setText(urlName);
-                    search();
+                    suchen();
                     Suchleiste.clear();
                 }
             }
         });
+
+        suchenSynonyme.setOnAction(e -> {
+            KnoepfeClearen();
+            synonymeSuchen();
+            Suchleiste.setText(synonymBegriff);
+        });
+
+
+        // beim selektieren eines Items in der Liste f�r Synonyme
+        synonymliste.setOnMouseClicked(e -> {
+            synonymBegriff = synonymliste.getSelectionModel().getSelectedItems().get(0);
+            if (e.getClickCount() == 2) {
+                Suchleiste.setText(synonymBegriff);
+                synonymBoxClearen();
+            }
+        });
+
+        // wenn die SynonymBox selektiert wird
+        synonymBox.setOnAction(e -> {
+            synonymBegriff = synonymBox.getSelectionModel().getSelectedItem();
+            Suchleiste.setText(synonymBegriff);
+            synonymeSuchen();
+            synonymBox.getSelectionModel().select(synonymBegriff);
+            KnoepfeClearen();
+            webView.getEngine().load("https://de.wikibooks.org/wiki/" + synonymBegriff);
+        });
     }
 
+    private Synonyme synonyme = new Synonyme();
+
+    private void synonymeSuchen() {
+        try {
+            ObservableList<String> liste = synonyme.synonymList(Suchleiste.getText());
+            synonymliste.getItems().clear();
+            if (liste.size() < 1) {
+                synonymliste.getItems().add("<keine>");
+                synonymliste.setDisable(true);
+                suchenSynonyme.setDisable(true);
+
+            } else {
+                synonymliste.setDisable(false);
+                suchenSynonyme.setDisable(false);
+                synonymliste.getItems().addAll(liste);
+            }
+        } catch (Exception e) {
+            errorSynonyme();
+        }
+    }
+
+    private void KnoepfeClearen() {
+
+        try {
+            int wortIndex = synonymBox.getSelectionModel().getSelectedIndex();
+
+            if (wortIndex < 1) {
+                vor.setDisable(true);
+            } else {
+                zurueck.setDisable(false);
+            }
+            if (wortIndex >= synonymBox.getItems().size() - 1) {
+                zurueck.setDisable(true);
+            } else {
+                zurueck.setDisable(false);
+            }
+        } catch (Exception e) {
+            KnopError();
+
+        }
+    }
+
+    private void synonymBoxClearen() {
+        try {
+            int wortIndex = synonymBox.getSelectionModel().getSelectedIndex();
+            if (synonymBox.getItems().contains(Suchleiste.getText())) {
+                synonymBox.getItems().remove(Suchleiste.getText());
+            }
+            if (wortIndex > 0) {
+                synonymBox.getItems().remove(0, wortIndex);
+
+            }
+            synonymBox.getItems().add(0, Suchleiste.getText());
+            synonymBox.getSelectionModel().select(0);
+        } catch (Exception e) {
+            KnopError();
+        }
+    }
+
+    private String synonymBegriff = null;
     private String urlName;
     private WikiBooks wikiBooks = null;
     private ArrayList<Medium> test = new ArrayList<>();
@@ -98,7 +202,7 @@ public class Controller {
 
     private void hinzufuegen() {
         try {
-            if (test.contains(wikiBooks)==false) {
+            if (test.contains(wikiBooks) == false) {
                 zettelkasten.addMedium(wikiBooks);
                 test.add(wikiBooks);
                 System.out.println(test);
@@ -112,30 +216,33 @@ public class Controller {
         }
     }
 
-    private void loeschen(){
+    private void loeschen() {
         try {
             zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             errorWikiBooks();
         }
     }
 
-    public void sortieren(){
+    public void sortieren() {
         zettelkasten.sort(richtung);
         if (!richtung.equals("ab")) {
             richtung = "ab";
         } else {
-           richtung = "auf";
+            richtung = "auf";
         }
     }
 
-    private void search() {
+    private void suchen() {
         try {
-            String search = Suchleiste.getText().trim().replace(" ", "_");
+            String suchergebnis = Suchleiste.getText().trim().replace(" ", "_");
 
-            if (!urlName.equals(search)) {
-                webView.getEngine().load("https://de.wikibooks.org/wiki/" + search);
+            if (!urlName.equals(suchergebnis)) {
+                webView.getEngine().load("https://de.wikibooks.org/wiki/" + suchergebnis);
+
+                synonymeSuchen();
+                synonymBoxClearen();
                 wikiBooks.calculateRepraesentation();
 
             }
@@ -144,10 +251,10 @@ public class Controller {
         }
     }
 
-    public void speichern(){
-        try{
+    public void speichern() {
+        try {
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Speichern fehlgeschlagen!!!");
         }
     }
@@ -158,8 +265,30 @@ public class Controller {
         alert.getDialogPane().setMinWidth(200);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.setHeaderText(null);
-        alert.setContentText("Konnte Wikibooks nicht erreichen");
+        alert.setContentText("Konnte Wikibooks nicht erreichen.");
         alert.showAndWait();
+    }
+
+    public void errorSynonyme() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("");
+        alert.getDialogPane().setMinWidth(200);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setHeaderText(null);
+        alert.setContentText("Fehler beim Zugriff auf den Wortschatzserver.");
+        alert.showAndWait();
+
+    }
+
+    public void KnopError() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("");
+        alert.getDialogPane().setMinWidth(200);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setHeaderText(null);
+        alert.setContentText("Fehler bei Aktion mit Knopf.");
+        alert.showAndWait();
+
     }
 
 
