@@ -5,6 +5,9 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="1200.0" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <VBox fx:id="vBoxMain" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -22,36 +25,24 @@
                             <children>
                                 <HBox fx:id="hBoxLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <VBox fx:id="vBoxInside" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="576.0" prefWidth="368.0" HBox.hgrow="ALWAYS">
+                                        <VBox fx:id="vBoxInside" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="586.0" prefWidth="368.0" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <HBox fx:id="hBoxInside" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
-                                                    <children>
-                                                        <Button fx:id="zurueck" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" text="Zurück">
-                                                            <HBox.margin>
-                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                            </HBox.margin>
-                                                        </Button>
-                                                        <ComboBox fx:id="synonymBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                                                            <HBox.margin>
-                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                            </HBox.margin>
-                                                        </ComboBox>
-                                                        <Button fx:id="vor" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" text="Vor">
-                                                            <HBox.margin>
-                                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                            </HBox.margin>
-                                                        </Button>
-                                                    </children>
                                                     <VBox.margin>
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                     </VBox.margin>
+                                       <children>
+                                                        <Button fx:id="zurueck" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" text="Zurück" />
+                                                        <ComboBox fx:id="synonymBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="23.0" prefWidth="368.0" />
+                                                        <Button fx:id="vor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" text="Vor" />
+                                       </children>
                                                 </HBox>
                                                 <Label fx:id="synonyms" text="Synonyme:" VBox.vgrow="NEVER">
                                                     <VBox.margin>
                                                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <ListView fx:id="synonymliste" fixedCellSize="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefWidth="343.0" VBox.vgrow="ALWAYS">
+                                                <ListView fx:id="synonymliste" fixedCellSize="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="347.0" prefWidth="364.0" VBox.vgrow="ALWAYS">
                                                     <opaqueInsets>
                                                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                                     </opaqueInsets>
@@ -68,7 +59,7 @@
                                         </VBox>
                                         <VBox fx:id="vBoxInside2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="578.0" prefWidth="359.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <HBox fx:id="hBoxInside_2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
+                                                <HBox fx:id="hBoxInside_2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="359.0" VBox.vgrow="NEVER">
                                                     <children>
                                                         <Button fx:id="Hinzufuegen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" text="Hinzufügen" HBox.hgrow="ALWAYS">
                                                             <HBox.margin>
@@ -94,7 +85,7 @@
                                                 </Label>
                                     <Button fx:id="Speichern" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Speichern" />
                                     <Button fx:id="Laden" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Laden" />
-                                                <ListView fx:id="listMedia" fixedCellSize="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="355.0" VBox.vgrow="ALWAYS">
+                                                <ListView fx:id="listMedia" fixedCellSize="50.0" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
                                                     <opaqueInsets>
                                                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                                     </opaqueInsets>
@@ -173,6 +164,18 @@
                         <Insets />
                     </VBox.margin>
                 </HBox>
+                <MenuBar fx:id="menuBar" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="23.0">
+                    <menus>
+                        <Menu fx:id="menu" mnemonicParsing="false" text="?">
+                            <items>
+                                <MenuItem fx:id="fragezeichen" mnemonicParsing="false" text="Über dieses Programm" />
+                            </items>
+                        </Menu>
+                    </menus>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </MenuBar>
             </children>
         </VBox>
     </children>

@@ -7,6 +7,7 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
@@ -56,6 +57,9 @@ public class Controller {
     @FXML
     Button suchenSynonyme;
 
+    @FXML
+    MenuItem fragezeichen;
+
 
     @FXML
     private void initialize() {
@@ -81,6 +85,11 @@ public class Controller {
                 suchen();
 
             }
+        });
+
+
+        anchorPane.setOnKeyPressed(event -> {
+            F1Zeug(event);
         });
 
         Hinzufuegen.setOnAction(event -> {
@@ -136,13 +145,19 @@ public class Controller {
             webView.getEngine().load("https://de.wikibooks.org/wiki/" + synonymBegriff);
         });
 
-        vor.setOnAction(event ->    {
-            synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex()-1);
+        vor.setOnAction(event -> {
+            synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex() - 1);
         });
 
         zurueck.setOnAction(event -> {
-            synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex()+1);
+            synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex() + 1);
         });
+
+        fragezeichen.setOnAction(event -> {
+            rechtszeugzeigen();
+        });
+
+
     }
 
     private Synonyme synonyme = new Synonyme();
@@ -301,6 +316,37 @@ public class Controller {
 
     }
 
+    public void rechtszeugzeigen() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.getDialogPane().setMinWidth(600);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setHeaderText(null);
+        alert.setContentText("Alle redaktionellen Inhalte stammen von den Internetseiten der Projekte Wikibooks und Wortschatz.\n\nDie von Wikibooks bezogenen Inhalte unterliegen der GNU Free Documentation License und damit auch" +
+
+                "dieses Programm. Der Text der GNU FDL ist unter" +
+
+                "http://de.wikipedia.org/wiki/Wikipedia:GNU_Free_Documentation_License verfügbar.\n\nDie von Wortschatz (http://wortschatz.uni-leipzig.de/) bezogenen Inhalte sind urheberrechtlich geschützt." +
+
+                "Sie werden hier für wissenschaftliche Zwecke eingesetzt und dürfen darüber hinaus in keiner Weise" +
+
+                "genutzt werden.\nDieses Programm ist nur zur Nutzung durch den Programmierer selbst gedacht.\n\n Dieses Programm dient" +
+
+                "der Demonstration und dem Erlernen von Prinzipien der Programmierung mit Java. Eine Verwendung" +
+
+                "des Programms für andere Zwecke verletzt die Urheberrechte der Originalautoren der redaktionellen" +
+
+                "Inhalte und ist daher untersagt.");
+
+        alert.showAndWait();
+
+    }
+
+    private void F1Zeug(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.F1) {
+            rechtszeugzeigen();
+        }
+    }
 
 }
 
