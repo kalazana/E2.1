@@ -68,6 +68,8 @@ public class Controller {
 
         Suchen.setOnAction((event) -> {
             suchen();
+
+
         });
 
         Suchleiste.setOnMouseClicked(event -> {
@@ -77,6 +79,7 @@ public class Controller {
         Suchleiste.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 suchen();
+
             }
         });
 
@@ -132,6 +135,14 @@ public class Controller {
             KnoepfeClearen();
             webView.getEngine().load("https://de.wikibooks.org/wiki/" + synonymBegriff);
         });
+
+        vor.setOnAction(event ->    {
+            synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex()-1);
+        });
+
+        zurueck.setOnAction(event -> {
+            synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex()+1);
+        });
     }
 
     private Synonyme synonyme = new Synonyme();
@@ -163,7 +174,7 @@ public class Controller {
             if (wortIndex < 1) {
                 vor.setDisable(true);
             } else {
-                zurueck.setDisable(false);
+                vor.setDisable(false);
             }
             if (wortIndex >= synonymBox.getItems().size() - 1) {
                 zurueck.setDisable(true);
@@ -241,11 +252,9 @@ public class Controller {
 
             if (!urlName.equals(suchergebnis)) {
                 webView.getEngine().load("https://de.wikibooks.org/wiki/" + suchergebnis);
-
                 synonymeSuchen();
                 synonymBoxClearen();
                 wikiBooks.calculateRepraesentation();
-
             }
         } catch (NullPointerException e) {
             System.out.println("Fehler beim suchen aufgetreten!!!");
