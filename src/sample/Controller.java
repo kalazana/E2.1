@@ -69,6 +69,12 @@ public class Controller {
     @FXML
     ListView<Medium> medienListe;
 
+    @FXML
+    Label aenderung;
+
+    @FXML
+    Label bearbeiter;
+
 
     @FXML
     private void initialize() {
@@ -175,6 +181,10 @@ public class Controller {
         fragezeichen.setOnAction(event -> {
             rechtszeugzeigen();
         });
+
+        Hinzufuegen.setOnAction(e -> {
+            hinzufuegen();
+        });
     }
 
 
@@ -245,13 +255,14 @@ public class Controller {
     private Zettelkasten zettelkasten = new Zettelkasten();
     private Medium selectedItemBuch = null;
     private String richtung = "auf";
-    private WikiBooksParser wikiBooksParser = null;
 
     private void hinzufuegen() {
         try {
+
+            zettelkasten.addMedium(wikiBooks);
             for(Medium medium : test){
                 if(!test.contains(medium)){
-                    test.add(medium);
+                    zettelkasten.addMedium(medium);
                 }
                 else{
                     System.out.println("afssgdfh");
@@ -287,15 +298,23 @@ public class Controller {
         try {
             String suchergebnis = Suchleiste.getText().trim().replace(" ", "_");
 
+
+
             if (!urlName.equals(suchergebnis)) {
                 webView.getEngine().load("https://de.wikibooks.org/wiki/" + suchergebnis);
                 synonymeSuchen();
                 synonymBoxClearen();
                 wikiBooks.calculateRepraesentation();
             }
+
+            WikiBooksParser books = new WikiBooksParser();
+            wikiBooks = (WikiBooks) books.parse(suchergebnis);
+            setBookInformation(wikiBooks);
         } catch (NullPointerException e) {
             System.out.println("Fehler beim suchen aufgetreten!!!");
         }
+
+
     }
 
     public void speichern() {
@@ -374,6 +393,16 @@ public class Controller {
         medienListe.getItems().clear();
         for(Medium medium : zettelkasten.getMedium_Arr()){
             medienListe.getItems().add(medium);
+        }
+    }
+
+    private void setBookInformation(Medium medium) {
+        if (medium != null) {
+            bearbeiter.setText("Letzte Bearbeitung: " + wikiBooks.getVerfasser());
+            aenderung.setText("Letzte Aenderung: " + WikiBooks.convertTime(wikiBooks.getAenderungsDatum()));
+        } else {
+            bearbeiter.setText("Letzter Bearbeiter:");
+            aenderung.setText("Letzte Änderung:");
         }
     }
 

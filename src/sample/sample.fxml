@@ -140,7 +140,7 @@
                                         </WebView>
                                         <HBox fx:id="hBoxRight_2" maxWidth="1.7976931348623157E308">
                                             <children>
-                                                <Label fx:id="labelB" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Letzter Bearbeiter:" HBox.hgrow="ALWAYS">
+                                                <Label fx:id="bearbeiter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Letzter Bearbeiter:" HBox.hgrow="ALWAYS">
                                                     <HBox.margin>
                                                         <Insets bottom="12.0" left="2.0" right="2.0" top="2.0" />
                                                     </HBox.margin>
