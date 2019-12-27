@@ -245,16 +245,17 @@ public class Controller {
     private Zettelkasten zettelkasten = new Zettelkasten();
     private Medium selectedItemBuch = null;
     private String richtung = "auf";
+    private WikiBooksParser wikiBooksParser = null;
 
     private void hinzufuegen() {
         try {
-            if (test.contains(wikiBooks) == false) {
-                zettelkasten.addMedium(wikiBooks);
-                test.add(wikiBooks);
-                System.out.println(test);
-
-            } else {
-                System.out.println("a");
+            for(Medium medium : test){
+                if(!test.contains(medium)){
+                    test.add(medium);
+                }
+                else{
+                    System.out.println("afssgdfh");
+                }
             }
 
         } catch (Exception e) {
@@ -264,7 +265,8 @@ public class Controller {
 
     private void loeschen() {
         try {
-            zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
+           // zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
+            medienliste();
 
         } catch (Exception e) {
             errorWikiBooks();
@@ -273,6 +275,7 @@ public class Controller {
 
     public void sortieren() {
         zettelkasten.sort(richtung);
+        medienliste();
         if (!richtung.equals("ab")) {
             richtung = "ab";
         } else {
@@ -364,6 +367,13 @@ public class Controller {
     private void F1Zeug(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.F1) {
             rechtszeugzeigen();
+        }
+    }
+
+    private void medienliste(){
+        medienListe.getItems().clear();
+        for(Medium medium : zettelkasten.getMedium_Arr()){
+            medienListe.getItems().add(medium);
         }
     }
 
