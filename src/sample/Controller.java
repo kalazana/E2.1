@@ -2,9 +2,12 @@ package sample;
 //2.4
 
 
+import com.sun.javafx.scene.traversal.Direction;
+import com.sun.javafx.scene.traversal.TraversalEngine;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -12,7 +15,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller {
     @FXML
@@ -60,6 +66,9 @@ public class Controller {
     @FXML
     MenuItem fragezeichen;
 
+    @FXML
+    ListView<Medium> medienListe;
+
 
     @FXML
     private void initialize() {
@@ -97,6 +106,16 @@ public class Controller {
         });
 
         webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            //Worker State alle Worker fangen in Ready an, perfomt Aufgaben im Hintergrund, ermöglicht einen "Blick" in die "Zukunft"
+           if (Worker.State.FAILED.equals(newValue)) {
+                errorWikiBooks();
+                synonymBoxClearen();
+            }
+            if (Worker.State.SCHEDULED.equals(newValue)) {
+                if (!webView.getEngine().getLocation().contains("https://de.wikibooks.org/")) {
+                    webView.getEngine().load("https://de.wikibooks.org/wiki/");
+                }
+            }
 
             if (Worker.State.SUCCEEDED.equals(newValue)) {
                 if (webView.getEngine().getLocation().contains("https://de.wikibooks.org/wiki/")) {
@@ -104,7 +123,7 @@ public class Controller {
                     urlName = urlName.replace("https://de.wikibooks.org/wiki/", "");
                     Suchleiste.setText(urlName);
                     suchen();
-                    //Suchleiste.clear();
+
                 } else {
                     urlName = webView.getEngine().getLocation();
                     urlName = urlName.replace("https://de.wikibooks.org/w/index.php?search=", "");
@@ -156,9 +175,9 @@ public class Controller {
         fragezeichen.setOnAction(event -> {
             rechtszeugzeigen();
         });
-
-
     }
+
+
 
     private Synonyme synonyme = new Synonyme();
 
