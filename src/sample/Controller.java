@@ -230,6 +230,8 @@ public class Controller {
         }
     }
 
+
+
     private String synonymBegriff = null;
     private String urlName;
     private WikiBooks wikiBooks = null;
@@ -238,6 +240,7 @@ public class Controller {
     private Medium selectedItemBuch = null;
     private String richtung = "auf";
 
+    //fügt das aktuelle Buch(mit den Informationen) dem Zettelkasten hinzu (zumindest theoretisch)
     private void hinzufuegen() {
         try {
 
@@ -254,7 +257,7 @@ public class Controller {
             errorWikiBooks();
         }
     }
-    //eh deaktiviert
+    //ist deaktiviert, ist von der Aufgabenstellung her so vorgesehen
     private void loeschen() {
         try {
             // zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
@@ -264,7 +267,7 @@ public class Controller {
             errorWikiBooks();
         }
     }
-    //Funtkion für auf und abwaärts sortieren der Mediein im zettelkasten
+    //Funtkion für auf und abwärts sortieren der Mediein im zettelkasten, je nachdem welche Richtung angegeben wurde
     public void sortieren() {
         try {
             zettelkasten.sort(richtung);
@@ -278,7 +281,7 @@ public class Controller {
             sortierError();
         }
     }
-    //funktion suchen, das Suchergebnis wird erstaml getrimmt und leerzeuichen werden aufgefüllt
+    //funktion suchen, das Suchergebnis wird erstaml getrimmt und Leerzeichen werden aufgefüllt mit Unterstrichen
     private void suchen() {
         try {
             String suchergebnis = Suchleiste.getText().trim().replace(" ", "_");
@@ -298,7 +301,7 @@ public class Controller {
             System.out.println("Fehler beim suchen aufgetreten!!!");
         }
     }
-    // Speichert die Medien im Zettelkasten
+    // Speichert die Medien im Zettelkasten (bzw tut nichts)
     public void speichern() {
         try {
 
@@ -350,7 +353,7 @@ public class Controller {
         alert.showAndWait();
 
     }
-        //zeitg den ewig langen Text wenn man F1 drückt oder auf das Fragezeichen drückt
+        //zeigt den ewig langen Text wenn man F1 drückt oder auf das Fragezeichen drückt
     public void rechtszeugzeigen() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");

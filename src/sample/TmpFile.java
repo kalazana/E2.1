@@ -18,6 +18,8 @@ public class TmpFile {
      * @return
      * @throws IOException
      */
+
+    //erstellt ein temporäres File aus dem Daten ausgelesen werden um den Stream dann wieder zu schließen, geht dabei jede Line einzlen durch und gibt eine Datei zurück
     public File createTmpFile(ArrayList<String> _tmp) throws IOException {
         File datei = File.createTempFile("temp", ".xml");
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(datei), "UTF8"));

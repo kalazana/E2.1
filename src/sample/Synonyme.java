@@ -37,7 +37,7 @@ public class Synonyme {
 
         for (Object e1 : jsonResponseArr) {
 
-            // aus dem Element den Container f�r das Synonym beschaffen
+            // aus dem Element den Container fuer das Synonym beschaffen
             wordContainer = (JSONObject) ((JSONObject) e1).get("word");
 
             // aus dem Container das Synonym beschaffen
