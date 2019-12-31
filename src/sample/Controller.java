@@ -18,11 +18,13 @@ import javafx.scene.web.WebView;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller {
+
     @FXML
-    private Button Suchen;
+    private Button Suchen, Speichern, Loeschen, Laden, Hinzufuegen, Sortieren, zurueck, vor, suchenSynonyme;
 
     @FXML
     private TextField Suchleiste;
@@ -34,34 +36,10 @@ public class Controller {
     AnchorPane anchorPane;
 
     @FXML
-    Button Speichern;
-
-    @FXML
-    Button Laden;
-
-    @FXML
-    Button Loeschen;
-
-    @FXML
-    Button Hinzufuegen;
-
-    @FXML
-    Button Sortieren;
-
-    @FXML
     ListView<String> synonymliste;
 
     @FXML
-    Button vor;
-
-    @FXML
-    Button zurueck;
-
-    @FXML
     ComboBox<String> synonymBox;
-
-    @FXML
-    Button suchenSynonyme;
 
     @FXML
     MenuItem fragezeichen;
@@ -70,24 +48,18 @@ public class Controller {
     ListView<Medium> medienListe;
 
     @FXML
-    Label aenderung;
-
-    @FXML
-    Label bearbeiter;
-
+    Label aenderung, bearbeiter;
 
     @FXML
     private void initialize() {
 
         webView.getEngine().load("https://de.wikibooks.org/wiki");
 
-
         //Loeschen Button deaktiviert
         Loeschen.setDisable(true);
 
         Suchen.setOnAction((event) -> {
             suchen();
-
 
         });
 
@@ -102,7 +74,6 @@ public class Controller {
             }
         });
 
-
         anchorPane.setOnKeyPressed(event -> {
             F1Zeug(event);
         });
@@ -113,7 +84,7 @@ public class Controller {
 
         webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             //Worker State alle Worker fangen in Ready an, perfomt Aufgaben im Hintergrund, ermöglicht einen "Blick" in die "Zukunft"
-           if (Worker.State.FAILED.equals(newValue)) {
+            if (Worker.State.FAILED.equals(newValue)) {
                 errorWikiBooks();
                 synonymBoxClearen();
             }
@@ -188,12 +159,12 @@ public class Controller {
     }
 
 
-
     private Synonyme synonyme = new Synonyme();
 
     private void synonymeSuchen() {
         try {
             ObservableList<String> liste = synonyme.synonymList(Suchleiste.getText());
+            liste.sort(String::compareTo);
             synonymliste.getItems().clear();
             if (liste.size() < 1) {
                 synonymliste.getItems().add("<keine>");
@@ -260,11 +231,10 @@ public class Controller {
         try {
 
             zettelkasten.addMedium(wikiBooks);
-            for(Medium medium : test){
-                if(!test.contains(medium)){
+            for (Medium medium : test) {
+                if (!test.contains(medium)) {
                     zettelkasten.addMedium(medium);
-                }
-                else{
+                } else {
                     System.out.println("afssgdfh");
                 }
             }
@@ -276,7 +246,7 @@ public class Controller {
 
     private void loeschen() {
         try {
-           // zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
+            // zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
             medienliste();
 
         } catch (Exception e) {
@@ -285,19 +255,22 @@ public class Controller {
     }
 
     public void sortieren() {
-        zettelkasten.sort(richtung);
-        medienliste();
-        if (!richtung.equals("ab")) {
-            richtung = "ab";
-        } else {
-            richtung = "auf";
+        try {
+            zettelkasten.sort(richtung);
+            medienliste();
+            if (!richtung.equals("ab")) {
+                richtung = "ab";
+            } else {
+                richtung = "auf";
+            }
+        }catch(Exception e){
+           sortierError();
         }
     }
 
     private void suchen() {
         try {
             String suchergebnis = Suchleiste.getText().trim().replace(" ", "_");
-
 
 
             if (!urlName.equals(suchergebnis)) {
@@ -346,6 +319,17 @@ public class Controller {
 
     }
 
+    public void sortierError() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("");
+        alert.getDialogPane().setMinWidth(200);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setHeaderText(null);
+        alert.setContentText("Fehler beim sortieren.");
+        alert.showAndWait();
+
+    }
+
     public void KnopError() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("");
@@ -389,9 +373,9 @@ public class Controller {
         }
     }
 
-    private void medienliste(){
+    private void medienliste() {
         medienListe.getItems().clear();
-        for(Medium medium : zettelkasten.getMedium_Arr()){
+        for (Medium medium : zettelkasten.getMedium_Arr()) {
             medienListe.getItems().add(medium);
         }
     }
