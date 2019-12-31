@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Bibliothek {
 
-//Alles bis einschließlich Aufgabenblatt D von Fuad übernommen !!!
+//Alles bis einschließlich Aufgabenblatt D von Tom Cybart !!!
 
     public static void main(String[] args) throws IOException {
 

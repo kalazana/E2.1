@@ -19,54 +19,59 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.SplittableRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller {
-
+    // Alle benoetigten Buttons für die Aufgabenstellungen hinzugefügt
     @FXML
     private Button Suchen, Speichern, Loeschen, Laden, Hinzufuegen, Sortieren, zurueck, vor, suchenSynonyme;
-
+    //TextFeld für die Suchleiste
     @FXML
     private TextField Suchleiste;
-
+    //WebView
     @FXML
     private WebView webView;
-
+    //Anchor Pane
     @FXML
-    AnchorPane anchorPane;
-
+    private AnchorPane anchorPane;
+    //List View als String hinzugefügt da Strings eingegeben werden
     @FXML
-    ListView<String> synonymliste;
-
+    private ListView<String> synonymliste;
+    //Combobox als String eingefügt da wir auch hier String eingegeben werden
     @FXML
-    ComboBox<String> synonymBox;
-
+    private ComboBox<String> synonymBox;
+    //Das Fragezeichen Symbol für Aufgaben 2.9 hinzufügen
     @FXML
-    MenuItem fragezeichen;
-
+    private MenuItem fragezeichen;
+    //List View als Medium, da wir es als Medium hibzufügen müssen wegen Zettelkasten
     @FXML
-    ListView<Medium> medienListe;
-
+    private ListView<Medium> medienListe;
+    //Label
     @FXML
-    Label aenderung, bearbeiter;
+    private Label aenderung, bearbeiter;
 
+    //Initialisierung
     @FXML
     private void initialize() {
-
+        //Lädt die Website Wikibooks.org
         webView.getEngine().load("https://de.wikibooks.org/wiki");
 
-        //Loeschen Button deaktiviert
+        //Loeschen Button permanent deaktiviert
         Loeschen.setDisable(true);
 
+        //sobald der Suchen Button betätigt wird wird die suchen Funktion ausgeführt
         Suchen.setOnAction((event) -> {
             suchen();
 
         });
 
+        //wenn in die Suchleiste geklickt wird, wird der gesamte Inhalt der Suchleiste markiert
         Suchleiste.setOnMouseClicked(event -> {
             Suchleiste.selectAll();
         });
 
+        //wenn Enter gedrückt wird, wird die Suche ausgeführt mit dem Begriff der in der Suchleiste zum aktuellen Zeitpunkt steht
         Suchleiste.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 suchen();
@@ -74,33 +79,37 @@ public class Controller {
             }
         });
 
+        //wenn F1 gedrückt wird, wird das Über dieses Programm Fenster geöfffnet
         anchorPane.setOnKeyPressed(event -> {
             F1Zeug(event);
         });
 
+        //Hinzufuegen Button mit entsprechender Methode
         Hinzufuegen.setOnAction(event -> {
             hinzufuegen();
         });
 
+        //holt sich den State des WorkLoader von der Engine von Webview
         webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             //Worker State alle Worker fangen in Ready an, perfomt Aufgaben im Hintergrund, ermöglicht einen "Blick" in die "Zukunft"
             if (Worker.State.FAILED.equals(newValue)) {
                 errorWikiBooks();
                 synonymBoxClearen();
             }
+            //Das hier ist für die Umleitung zuständig, sobald ein Link gefunden wird der außerhalb von Wikibooks führt und gedrückt wurde, wird man sofort zur Startseite wieder umgeleitet
             if (Worker.State.SCHEDULED.equals(newValue)) {
                 if (!webView.getEngine().getLocation().contains("https://de.wikibooks.org/")) {
                     webView.getEngine().load("https://de.wikibooks.org/wiki/");
                 }
             }
-
+            //Wenn die Verbindung hergestellt wurde guckt er setzt er den aktuellen Namen in die Suchleiste
             if (Worker.State.SUCCEEDED.equals(newValue)) {
                 if (webView.getEngine().getLocation().contains("https://de.wikibooks.org/wiki/")) {
                     urlName = webView.getEngine().getLocation();
                     urlName = urlName.replace("https://de.wikibooks.org/wiki/", "");
                     Suchleiste.setText(urlName);
-                    suchen();
 
+                  //setzt die Suche und den Titel in die Sucheliste falls er als Buchtitel erkannt wird
                 } else {
                     urlName = webView.getEngine().getLocation();
                     urlName = urlName.replace("https://de.wikibooks.org/w/index.php?search=", "");
@@ -115,14 +124,15 @@ public class Controller {
             }
         });
 
+        //sucht die Synonyme wenn der Button gedrückt wird
         suchenSynonyme.setOnAction(e -> {
             KnoepfeClearen();
             synonymeSuchen();
-            Suchleiste.setText(synonymBegriff);
+            Suchleiste.setText(String.valueOf(synonymBegriff));
         });
 
 
-        // beim selektieren eines Items in der Liste f�r Synonyme
+        // beim selektieren eines Items in der Liste für die Synonyme (das mit dem Doppelklick
         synonymliste.setOnMouseClicked(e -> {
             synonymBegriff = synonymliste.getSelectionModel().getSelectedItems().get(0);
             if (e.getClickCount() == 2) {
@@ -134,33 +144,34 @@ public class Controller {
         // wenn die SynonymBox selektiert wird
         synonymBox.setOnAction(e -> {
             synonymBegriff = synonymBox.getSelectionModel().getSelectedItem();
-            Suchleiste.setText(synonymBegriff);
+            Suchleiste.setText(String.valueOf(synonymBegriff));
             synonymeSuchen();
             synonymBox.getSelectionModel().select(synonymBegriff);
             KnoepfeClearen();
             webView.getEngine().load("https://de.wikibooks.org/wiki/" + synonymBegriff);
         });
 
+        //setzt den Index wenn man auf den Vor Button um einen niedriger, ansonsten macht er genau das was er auch im Browser macht
         vor.setOnAction(event -> {
             synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex() - 1);
         });
-
+        //setzt den Index um einen höher
         zurueck.setOnAction(event -> {
             synonymBox.getSelectionModel().select(synonymBox.getSelectionModel().getSelectedIndex() + 1);
         });
 
+        //wenn man auf den Fragezeichen Button drückt zeigt er das Rechtszeug an
         fragezeichen.setOnAction(event -> {
             rechtszeugzeigen();
         });
-
+        //wenn man hinzufuegen Button drückt ruft er die Methode auf
         Hinzufuegen.setOnAction(e -> {
             hinzufuegen();
         });
     }
-
-
+    //
     private Synonyme synonyme = new Synonyme();
-
+    //sucht die Synonyme
     private void synonymeSuchen() {
         try {
             ObservableList<String> liste = synonyme.synonymList(Suchleiste.getText());
@@ -180,7 +191,7 @@ public class Controller {
             errorSynonyme();
         }
     }
-
+    //resettet die Knoepfe
     private void KnoepfeClearen() {
 
         try {
@@ -201,7 +212,7 @@ public class Controller {
 
         }
     }
-
+    //resettet die Synonymbox
     private void synonymBoxClearen() {
         try {
             int wortIndex = synonymBox.getSelectionModel().getSelectedIndex();
@@ -235,7 +246,7 @@ public class Controller {
                 if (!test.contains(medium)) {
                     zettelkasten.addMedium(medium);
                 } else {
-                    System.out.println("afssgdfh");
+                    System.out.println("Fehler: 'hinzufuegen'");
                 }
             }
 
@@ -243,7 +254,7 @@ public class Controller {
             errorWikiBooks();
         }
     }
-
+    //eh deaktiviert
     private void loeschen() {
         try {
             // zettelkasten.dropMedium("w", selectedItemBuch.getTitel());
@@ -253,7 +264,7 @@ public class Controller {
             errorWikiBooks();
         }
     }
-
+    //Funtkion für auf und abwaärts sortieren der Mediein im zettelkasten
     public void sortieren() {
         try {
             zettelkasten.sort(richtung);
@@ -263,33 +274,31 @@ public class Controller {
             } else {
                 richtung = "auf";
             }
-        }catch(Exception e){
-           sortierError();
+        } catch (Exception e) {
+            sortierError();
         }
     }
-
+    //funktion suchen, das Suchergebnis wird erstaml getrimmt und leerzeuichen werden aufgefüllt
     private void suchen() {
         try {
             String suchergebnis = Suchleiste.getText().trim().replace(" ", "_");
 
-
+            //Falls dass aktuell gesuchte nicht etwass neuen entspricht lade es nucht neu
             if (!urlName.equals(suchergebnis)) {
                 webView.getEngine().load("https://de.wikibooks.org/wiki/" + suchergebnis);
                 synonymeSuchen();
                 synonymBoxClearen();
                 wikiBooks.calculateRepraesentation();
             }
-
+            //setzt Informationen wie Verfasser (theoretisch zumindest)
             WikiBooksParser books = new WikiBooksParser();
             wikiBooks = (WikiBooks) books.parse(suchergebnis);
             setBookInformation(wikiBooks);
         } catch (NullPointerException e) {
             System.out.println("Fehler beim suchen aufgetreten!!!");
         }
-
-
     }
-
+    // Speichert die Medien im Zettelkasten
     public void speichern() {
         try {
 
@@ -297,7 +306,7 @@ public class Controller {
             System.out.println("Speichern fehlgeschlagen!!!");
         }
     }
-
+    //Fehlermeldung wenn man Wikibooks nicht erreichen kann
     private void errorWikiBooks() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("");
@@ -307,7 +316,7 @@ public class Controller {
         alert.setContentText("Konnte Wikibooks nicht erreichen.");
         alert.showAndWait();
     }
-
+    //Fehlermeldung bei den Synonymen für den Zugriff auf den Wortschatz zugreifen
     public void errorSynonyme() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("");
@@ -318,7 +327,7 @@ public class Controller {
         alert.showAndWait();
 
     }
-
+    //Fehlermeldung fürs sortieren
     public void sortierError() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("");
@@ -330,6 +339,7 @@ public class Controller {
 
     }
 
+    //Fehler beim drücken eines Buttons
     public void KnopError() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("");
@@ -340,7 +350,7 @@ public class Controller {
         alert.showAndWait();
 
     }
-
+        //zeitg den ewig langen Text wenn man F1 drückt oder auf das Fragezeichen drückt
     public void rechtszeugzeigen() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
@@ -366,13 +376,13 @@ public class Controller {
         alert.showAndWait();
 
     }
-
+    //Methode fürs drücken von F1
     private void F1Zeug(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.F1) {
             rechtszeugzeigen();
         }
     }
-
+    //Das istz die Medienliste wo die Bücher hinzugefügt werden
     private void medienliste() {
         medienListe.getItems().clear();
         for (Medium medium : zettelkasten.getMedium_Arr()) {
@@ -380,6 +390,7 @@ public class Controller {
         }
     }
 
+    //Setzt den Verfasser und das letzte Bearbeitungsdatum
     private void setBookInformation(Medium medium) {
         if (medium != null) {
             bearbeiter.setText("Letzte Bearbeitung: " + wikiBooks.getVerfasser());
